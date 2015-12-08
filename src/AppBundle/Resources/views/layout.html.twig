@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="appModule">
+    <head>
+        <meta charset="UTF-8">
+        <title>Reviewer</title>
+        {% block header_javascripts %}
+
+            <script src="{{ asset('assets/vendor/angular/angular.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
+            <script src="{{ asset('bundles/app/js/app.js') }}"></script>
+        {% endblock %}
+
+        <link href="{{ asset('assets/vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    </head>
+    <body>
+
+    {% block body %}
+    {% endblock %}
+
+    {% block footer_javascripts %}
+
+    {% endblock %}
+    </body>
+</html>
