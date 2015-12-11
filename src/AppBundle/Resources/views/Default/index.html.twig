@@ -7,19 +7,33 @@
 
 {% block body %}
 
-    <div class='container-fluid typeahead-demo' ng-controller="TypeaheadCtrl">
-
-        <h4>Static arrays</h4>
-        <pre>Model: {{ ng.curly('selected | json') }}</pre>
-        <input type="text" ng-model="selected" uib-typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+    <div class='container-fluid' ng-controller="ProductSearchController">
 
         <h4>Asynchronous results</h4>
-        <pre>Model: {{ ng.curly('asyncSelected | json') }}</pre>
-        <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="word for word in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+        <pre>Product header: {{ ng.curly('product | json') }}</pre>
+        <input type="text"
+               ng-model="product"
+               placeholder="Podaj nazwę produktu"
+               uib-typeahead="product as product.word for product in getLocation($viewValue)"
+               typeahead-loading="loadingLocations"
+               typeahead-no-results="noResults"
+               typeahead-template-url="{{ asset('bundles/app/templates/product-result.tpl.html') }}"
+               typeahead-on-select="onSelect($item, $model)"
+               class="form-control">
+
         <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
         <div ng-show="noResults">
-            <i class="glyphicon glyphicon-remove"></i> No Results Found
+            <i class="glyphicon glyphicon-remove"></i> Brak wyników
         </div>
+
+    </div>
+
+    <div class='container-fluid' ng-controller="ProductController">
+
+        <h4>Product info</h4>
+        <pre>{{ ng.curly('product | json') }}</pre>
+
 
     </div>
 {% endblock %}
