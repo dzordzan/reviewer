@@ -58,5 +58,26 @@ class ProductController extends FOSRestController
         }
     }
 
+    /**
+     * This function get product reviews from Ceneo and return it as JSON record
+     * @Get("/api/product/review/{id}", name="api_get_product_review", requirements={"id"="\d+"})
+     * @param $id
+     * @return Response
+     */
+    public function getProductReviewAction($id)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "www.ceneo.pl/". $id);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec ($ch);
+
+        curl_close ($ch);
+
+        return new Response($server_output, Response::HTTP_OK);
+
+    }
+
 
 }
