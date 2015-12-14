@@ -7,6 +7,7 @@ function ProductSearchController ($scope, $http, $rootScope) {
     var vm = this;
 
     vm.selected = undefined;
+    $scope.product = {};
 
     $scope.getLocation = function (val) {
         return $http.get('api/products/' + val)
@@ -21,6 +22,6 @@ function ProductSearchController ($scope, $http, $rootScope) {
     $scope.onSelect = function($item, $model)
     {
         $rootScope.$emit('productSelected', $model);
-    }
-
+        $scope.product = $model;
+    };
 }
