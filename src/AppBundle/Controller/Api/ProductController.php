@@ -42,20 +42,20 @@ class ProductController extends FOSRestController
     public function getProductAction($id)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "www.ceneo.pl/". $id);
 
-        // receive server response ...
+        curl_setopt($ch, CURLOPT_URL, "www.ceneo.pl/". $id);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $server_output = curl_exec ($ch);
 
         curl_close ($ch);
 
-        if (preg_match('/ado\.master\((\{.*?\})\)/ms', $server_output, $match)){
+        /*if (preg_match('/ado\.master\((\{.*?\})\)/ms', $server_output, $match)){
             return new Response($match[1], Response::HTTP_OK);
         } else {
             return new Response('Produkt nie istnieje', Response::HTTP_NOT_FOUND);
-        }
+        }*/
+        return new Response($server_output, Response::HTTP_OK);
     }
 
     /**

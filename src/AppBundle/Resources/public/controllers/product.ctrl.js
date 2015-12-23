@@ -4,7 +4,8 @@ angular
 
 
 function ProductController ($scope, $http, $rootScope) {
-    var vm = this;
+    var vm = this,
+        $productDOM;
 
     $rootScope.$on('productSelected', function(event, model) {
         $scope.setProductModel(model.url);
@@ -18,16 +19,33 @@ function ProductController ($scope, $http, $rootScope) {
             method: 'GET',
             transformResponse: undefined
         }).then(function (response) {
+            $productDOM = $(response.data.replace(/<img[^>]*>/g,""));
 
-            $scope.product = eval("data="+response.data);
-            $scope.product.id = id.replace('/','');
+            var basicInfoMatches = response.data.match(/ado\.master\((\{[\s\S.]+?\})\)/i);
+
+
+            if (!angular.isUndefined(basicInfoMatches[1])) {
+                $scope.product = eval("data="+ basicInfoMatches[1]);
+                $scope.product.id = id.replace('/','');
+
+                $scope.getImages();
+
+            } else {
+                //brak produktu
+            }
             });
     };
 
-    $scope.getProductReviews = function (id) {
+    $scope.getImages = function () {
+        $scope.product.images = [];
+        $productDOM.find('#product-carousel a.js_gallery-anchor[href^="//"]').each(function(index, element) {
+            $scope.product.images.push(element.href);
+        });
+    };
 
+    $scope.getProductReviews = function () {
         $http
-            .get('api/product/review/'+id)
+            .get('api/product/review/'+ product.id)
             .then(function (response) {
                 var rawComments = response.data.match(/<li class="product-review js_product-review">[\s\S.]+?<\/li>/ig);
 
