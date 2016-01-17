@@ -10,6 +10,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
         product,
         similars;
 
+    $scope.product = {};
     $scope.saveFormat = 'JSON';
 
     $rootScope.$on('productSelected', function(event, model) {
@@ -117,6 +118,14 @@ function ProductController ($scope, $http, $rootScope, Console) {
             var $products = $similarDOM.find('div.partial.products.js.results div.partial');
             Console.echo("Znaleziono "+$products.length+" produkt(ów) podobnych");
 
+            if ($products.length == 0) {
+                Console.error("Dostosuj ręcznie nazwę produktu i spróbuj ponownie!");
+            } else {
+                if (!$scope.isCollapsed) {
+                    $scope.isCollapsed = true;
+                    $scope.slideToggle();
+                }
+            }
             angular.forEach($products, function (product) {
                 var $similar = $(product);
                 var url = $similar.find('a.wrap').attr('href');

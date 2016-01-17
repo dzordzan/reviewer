@@ -74,6 +74,13 @@
                 Zapis w - {{ ng.curly('saveFormat') }}
             </button>
         </div>
+        <div class="row" id="json-data">
+            <div class="col-md-12">
+            <pre><json-tree json='product' edit-level='low' collapsed-level='5' class="json-data"></json-tree></pre>
+                {#<pre class="json-data" >{{ ng.curly('product | json') }}</pre>#}
+            </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="similar" ng-show="similars.length>0">
         <div class="row">
         <div class="col-md-12">
@@ -98,12 +105,8 @@
           </div>
         </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="row" id="json-data">
-            <div class="col-md-12">
-                <pre class="json-data" >{{ ng.curly('product | json') }}</pre>
-            </div>
-        </div>
+
+
 
 
     </div>

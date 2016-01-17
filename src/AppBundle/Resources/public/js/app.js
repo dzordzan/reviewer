@@ -3,7 +3,7 @@
  */
 
 angular
-    .module('appModule', ['ui.bootstrap'])
+    .module('appModule', ['ui.bootstrap', 'json-tree'])
     .config(function ($httpProvider, $provide) {
         $provide.factory('httpInterceptor', function ($q, $rootScope, Console) {
             return {
