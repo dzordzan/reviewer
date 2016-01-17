@@ -2,7 +2,7 @@ angular
     .module('appModule')
     .factory('Console', function($filter) {
         var date = function () {
-            return $filter('date')(new Date(), 'yyyy-MM-dd HH:m:s');
+            return $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
         };
 
         var terminal =
@@ -14,9 +14,9 @@ angular
                     }
                 }
             }, {
-                greetings: 'Aplikacja do pobierania informacji',
+                greetings: 'Wersja aplikacji 0.0.1',
                 name: 'console',
-                height: 200,
+                height: 150,
                 prompt: '#'
             });
 

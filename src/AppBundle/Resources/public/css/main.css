@@ -1,5 +1,5 @@
 body {
-    margin-top: 10%;
+    margin-top: 100px;
     margin-bottom: 70px;
 }
 
@@ -12,6 +12,7 @@ body {
 .body {
     overflow: auto;
 }
+
 #wrap {
     min-height: 100%;
     height: auto;
@@ -38,9 +39,9 @@ body {
     top: 0px;
     left: 0px;
     width: 100%;
-    height: 9%;
+    height: 80px;
     min-height: 50px;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
     background-color: rgba(0, 0, 0, 0.7);
 
     -webkit-transition: all 0.5s ease-in-out;
@@ -69,7 +70,7 @@ body {
     width: 2em;
     overflow: show;
     margin: auto;
-    top: 9%;
+    top: 80px;
     left: 0;
     bottom: 0;
     right: 0;
@@ -79,7 +80,7 @@ body {
     content: '';
     display: block;
     position: fixed;
-    top: 9%;
+    top: 80px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -88,7 +89,7 @@ body {
 
 /* :not(:required) hides these rules from IE9 and below */
 .loading:not(:required) {
-    top: 9%!important;
+    top: 80px!important;
     /* hide "loading..." text */
     font: 0/0 a;
     color: transparent;
@@ -98,7 +99,7 @@ body {
 }
 
 .loading:not(:required):after {
-    top: 9%!important;
+    top: 80px!important;
     content: '';
     display: block;
     font-size: 10px;
@@ -129,7 +130,7 @@ body {
     padding-left: 30px;
     padding-right: 30px;
     outline: none;
-    font-size: 50px;
+    font-size: 40px;
     position: relative;
 
     margin-top: 10px;

@@ -6,12 +6,15 @@ angular
 function ProductController ($scope, $http, $rootScope, Console) {
     var vm = this,
         $productDOM,
-        product;
-
+        $similarDOM,
+        product,
+        similars;
 
     $rootScope.$on('productSelected', function(event, model) {
         //$scope.setProductModel(model.id);
         $scope.product = model;
+        $scope.similars = [];
+
     });
 
     $scope.slideToggle = function() {
@@ -24,6 +27,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
             method: 'GET',
             transformResponse: undefined
         }).then(function (response) {
+            Console.echo("Przetwarzanie informacji o produkcie");
             $productDOM = $(response.data.replace(/<img[^>]*>/g,""));
 
             var basicInfoMatches = response.data.match(/ado\.master\((\{[\s\S.]+?\})\)/i);
@@ -51,6 +55,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
     $scope.getProductReviews = function () {
         $scope.product.reviews = [];
+        Console.echo("Pobieranie recenzji produktu");
 
         var reviewCount = $scope.product.more.vars.ReviewCount;
         var currentPage = 2;
@@ -75,6 +80,40 @@ function ProductController ($scope, $http, $rootScope, Console) {
         }
     };
 
+
+    $scope.getSimilar = function () {
+        if (!angular.isDefined($scope.product)){
+            return;
+        }
+        Console.echo("Szukanie produktow podobnych");
+
+        $scope.similars = [];
+        $http({
+            url: 'api/similar/' + $scope.product.word.toLowerCase(),
+            method: 'GET',
+            transformResponse: undefined
+        }).then(function (response) {
+
+            $similarDOM = $(response.data.replace(/<img([^>]*)>/g,"<lazyimg $1>"));
+            var $products = $similarDOM.find('div.partial.products.js.results div.partial');
+            Console.echo("Znaleziono "+$products.length+" produkt(ów) podobnych");
+
+            angular.forEach($products, function (product) {
+                var $similar = $(product);
+                var url = $similar.find('a.wrap').attr('href');
+                var img = $similar.find('lazyimg').attr('src');
+
+                var similar = {};
+                similar.url = url;
+                similar.img = img;
+                similar.name = $similar.find('span.title, a.title').text().trim();
+                $scope.similars.push(similar);
+
+            });
+
+        });
+    };
+
     var parseComment = function (comments) {
         angular.forEach(comments, function (value) {
             $scope.loaderValue += 1;
@@ -83,4 +122,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
             $scope.product.reviews.push(comment);
         });
     }
+
+
+
 }

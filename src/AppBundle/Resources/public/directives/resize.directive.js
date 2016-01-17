@@ -22,4 +22,4 @@ angular
             scope.$apply();
         });
     }
-})
+});
