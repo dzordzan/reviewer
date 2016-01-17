@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Api;
 
+use DOMDocument;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
@@ -21,7 +22,8 @@ class ProductController extends FOSRestController
     public function getProductsAction($name)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,"http://www.ceneo.pl/OpenSearch/SuggestHtmlJqueryJson?&q=". urlencode($name) ."&limit=12");
+        curl_setopt($ch, CURLOPT_URL,"http://www.ceneo.pl/;szukaj-".urlencode($name).";0115-1.htm");
+        //curl_setopt($ch, CURLOPT_URL,"http://www.ceneo.pl/OpenSearch/SuggestHtmlJqueryJson?&q=". urlencode($name) ."&limit=12");
 
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -60,14 +62,15 @@ class ProductController extends FOSRestController
 
     /**
      * This function get product reviews from Ceneo and return it as JSON record
-     * @Get("/api/product/review/{id}", name="api_get_product_review", requirements={"id"="\d+"})
+     * @Get("/api/product/review/{id}/{page}", name="api_get_product_review", requirements={"id"="\d+"})
      * @param $id
+     * @param $page
      * @return Response
      */
-    public function getProductReviewAction($id)
+    public function getProductReviewAction($id, $page)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "www.ceneo.pl/". $id);
+        curl_setopt($ch, CURLOPT_URL, "www.ceneo.pl/". $id . '/opinie-' . $page);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 

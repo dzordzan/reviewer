@@ -1,198 +1,11 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% macro curly(contents) %}
-    {{ '{{' ~ contents ~ '}}' }}
+{% macro curly(contents) %}{% spaceless %}
+    {{ '{{' ~ contents ~ '}}' }}{% endspaceless %}
 {% endmacro %}
 {% import _self as ng %}
 
 {% block body %}
-<style>
-    body {
-        margin-top: 10%
-    }
-
-    #search {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 9%;
-        min-height: 50px;
-        margin-bottom: 20px;
-        background-color: rgba(0, 0, 0, 0.7);
-
-        -webkit-transition: all 0.5s ease-in-out;
-        -moz-transition: all 0.5s ease-in-out;
-        -o-transition: all 0.5s ease-in-out;
-        -ms-transition: all 0.5s ease-in-out;
-        transition: all 0.5s ease-in-out;
-
-    }
-
-    #search.open {
-        height: 100%;
-        -webkit-transform: translate(0px, 0px) scale(1, 1);
-        -moz-transform: translate(0px, 0px) scale(1, 1);
-        -o-transform: translate(0px, 0px) scale(1, 1);
-        -ms-transform: translate(0px, 0px) scale(1, 1);
-        transform: translate(0px, 0px) scale(1, 1);
-        opacity: 1;
-    }
-
-    #search input[type="search"] {
-        width: 100%;
-        color: rgb(255, 255, 255);
-        background: rgba(0, 0, 0, 0);
-        font-weight: 300;
-        text-align: center;
-        border: 0px;
-        margin: 0px auto;
-        padding-left: 30px;
-        padding-right: 30px;
-        outline: none;
-        font-size: 50px;
-        position: relative;
-
-        margin-top: 10px;
-
-        -webkit-transition: tall 2s ease-in-out;
-        -moz-transition: all 2s ease-in-out;
-        -o-transition: tall 2s ease-in-out;
-        -ms-transition: all 2s ease-in-out;
-        transition: all 2s ease-in-out 0s;
-    }
-    #search.open input[type="search"]{
-        position: absolute;
-        top: 20%;
-    }
-    .custom-popup {
-        left: 50%!important;
-        right: auto;
-        transform: translate(-50%, 0);
-    }
-
-    /* Absolute Center Spinner */
-    .loading {
-        position: fixed;
-        z-index: 999;
-        height: 2em;
-        width: 2em;
-        overflow: show;
-        margin: auto;
-        top: 9%;
-        left: 0;
-        bottom: 0;
-        right: 0;
-    }
-
-    /* Transparent Overlay */
-    .loading:before {
-        content: '';
-        display: block;
-        position: fixed;
-        top: 9%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.3);
-    }
-
-    /* :not(:required) hides these rules from IE9 and below */
-    .loading:not(:required) {
-        top: 9%!important;
-        /* hide "loading..." text */
-        font: 0/0 a;
-        color: transparent;
-        text-shadow: none;
-        background-color: transparent;
-        border: 0;
-    }
-
-    .loading:not(:required):after {
-        top: 9%!important;
-        content: '';
-        display: block;
-        font-size: 10px;
-        width: 1em;
-        height: 1em;
-        margin-top: -0.5em;
-        -webkit-animation: spinner 1500ms infinite linear;
-        -moz-animation: spinner 1500ms infinite linear;
-        -ms-animation: spinner 1500ms infinite linear;
-        -o-animation: spinner 1500ms infinite linear;
-        animation: spinner 1500ms infinite linear;
-        border-radius: 0.5em;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
-        box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
-    }
-
-    /* Animation */
-
-    @-webkit-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @-moz-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @-o-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-    @keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-</style>
 
 
     <div id="search" clas="open" ng-controller="ProductSearchController">
@@ -206,6 +19,7 @@
                    typeahead-template-url="{{ asset('bundles/app/templates/product-result.tpl.html') }}"
                    typeahead-popup-template-url="{{ asset('bundles/app/templates/product-popup.tpl.html') }}"
                    typeahead-on-select="onSelect($item, $model)"
+                   ng-model-options="{debounce: 500}"
                    id="search-input"
                    {#ng-style="{'background': 'url('+(searchProduct.image)+') no-repeat scroll 100px 100%'}"#}>
 
@@ -213,6 +27,7 @@
 
         <ul ng-show="noResults" class="dropdown-menu custom-popup" role="listbox"
             uib-dropdown uib-dropdown-toggle auto-close="disabled" is-open="true"
+            ng-style="{top: position().top+'px', width: 0.7*position().width+'px', 'height': 8*position().height + 'px'}"
             style="display: block; width: 70%;">
             <li class="text-center text-danger">
                 <a>
@@ -226,13 +41,42 @@
     </div>
 
 
-    <div ng-show="product.id"
-         class='container' ng-controller="ProductController">
-        <pre>{{ ng.curly('product | json') }}</pre>
+</div>
+<div class="row">
 
-        <button type="button" class="btn btn-primary"
-                ng-click="getProductReviews(product.id)">
-            Ładuj komentarze
-        </button>
+
+<div class="col-md-1"></div>
+<div class="col-md-10 center-block">
+    <div id="console" class="center-block">
+    <div ng-show="loaderValue">
+        <uib-progressbar max="loaderMax" value="loaderValue"><span style="color:white; white-space:nowrap;">{{ ng.curly('loaderValue/loaderMax*100| number:0') }}%</span></uib-progressbar>
+    </div>
+</div>
+</div>
+    {#ng-show="product.id"#}
+    <div
+    ng-show="product.id"
+         class='container' ng-controller="ProductController">
+
+        <div class="button-list">
+            <div class="btn-group-justified">
+                <a href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
+                <a href="#" ng-disabled="!product.reviews" class="btn btn-primary">Szukaj podobnych</a>
+                <a href="#" class="btn btn-primary">Zapisz dane</a>
+            </div>
+            <button type="button" class="btn btn-default btn-xs pull-right" ng-click="slideToggle(); isCollapsed = !isCollapsed; " style="width:10%">
+                <span class="glyphicon glyphicon-arrow-{{ ng.curly('isCollapsed?"down":"up"') }}"></span>{{ ng.curly('isCollapsed?"Pokaż":"Zwiń"') }} dane
+            </button>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row" id="json-data">
+            <div class="col-md-12">
+
+                <pre class="json-data" >{{ ng.curly('product | json') }}</pre>
+
+            </div>
+        </div>
+
+
     </div>
 {% endblock %}

@@ -6,6 +6,8 @@ function LoadingMaskDirective ($http) {
         restrict: 'A',
         link: function (scope, elm, attrs)
         {
+
+
             scope.isLoading = function () {
                 return ($http.pendingRequests.length > 0);
             };

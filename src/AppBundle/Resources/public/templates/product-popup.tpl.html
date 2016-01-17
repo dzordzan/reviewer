@@ -1,6 +1,6 @@
 <ul class="dropdown-menu custom-popup" role="listbox"
-    ng-style="{top: position().top+'px', width: 0.7*position().width+'px'}"
-    style="display: block;"
+    ng-style="{top: position().top+'px', width: 0.7*position().width+'px', 'height': 8*position().height + 'px'}"
+    style="display: block; "
     ng-show="isOpen() && !moveInProgress"
     aria-hidden="{{!isOpen()}}">
         <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }"
