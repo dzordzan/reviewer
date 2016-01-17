@@ -17,11 +17,27 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
     });
 
+    $rootScope.$on('product', function(event, command) {
+        //$scope.setProductModel(model.id);
+        var index = command.split('.')[1].split('=')[0];
+        var value = command.split('=')[1];
+
+        if (!angular.isDefined($scope.product)){
+            $scope.product = {};
+        }
+        $scope.$apply(function(){$scope.product[index.trim()] = value.trim();});
+
+    });
+
     $scope.slideToggle = function() {
         $('#json-data').slideToggle();
     };
 
     $scope.getProductInfo = function () {
+        if (!angular.isDefined($scope.product)){
+            Console.error('Wyszukaj i wybierz produkt wcześniej!')
+            return;
+        }
         $http({
             url: 'api/product/' + $scope.product.id,
             method: 'GET',
@@ -83,6 +99,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
     $scope.getSimilar = function () {
         if (!angular.isDefined($scope.product)){
+            Console.error('Wybierz produkt!')
             return;
         }
         Console.echo("Szukanie produktow podobnych");
@@ -121,8 +138,33 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
             $scope.product.reviews.push(comment);
         });
-    }
+    };
 
+    $scope.saveToPc = function (data, filename) {
 
+        if (!data) {
+            Console.error('Brak danych do zapisania');
+            return;
+        }
+
+        if (!filename) {
+            filename = 'download.json';
+        }
+
+        if (typeof data === 'object') {
+            data = JSON.stringify(data, undefined, 2);
+        }
+
+        var blob = new Blob([data], {type: 'text/json'}),
+            e = document.createEvent('MouseEvents'),
+            a = document.createElement('a');
+
+        a.download = filename;
+        a.href = window.URL.createObjectURL(blob);
+        a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+        e.initMouseEvent('click', true, false, window,
+            0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        a.dispatchEvent(e);
+    };
 
 }

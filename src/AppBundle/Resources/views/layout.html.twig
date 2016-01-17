@@ -19,7 +19,7 @@
 
             <script src="{{ asset('bundles/app/controllers/product.ctrl.js') }}"></script>
             <script src="{{ asset('bundles/app/controllers/product-search.ctrl.js') }}"></script>
-
+            <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 
         {% endblock %}
 
@@ -32,7 +32,28 @@
 
     {% block body %}
     {% endblock %}
-
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Komendy w konsoli:</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="well">
+                        <p>
+                        Wpisz: "product.ZMIENNA = WARTOSC" aby zmienić dane produktu
+                        </p><p>
+                        np. product.word = moja nazwa - zaktualizuje product.word = "Moja nazwa"</p>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container footer"
          ng-style="style()"
         resize >
@@ -40,7 +61,7 @@
             <hr>
             <div class="col-lg-12">
                 <div class="col-md-8">
-                    <a href="#">Pomoc</a>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#myModal">Pomoc</button>
                 </div>
                 <div class="col-md-4">
                     <p class="muted pull-right">© 2015 Andrzej Piszczek</p>

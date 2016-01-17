@@ -63,8 +63,8 @@
         <div class="button-list">
             <div class="btn-group-justified">
                 <a href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
-                <a href="#" ng-disabled="!product.reviews" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
-                <a href="#" class="btn btn-primary">Zapisz dane</a>
+                <a href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
+                <a href="#" class="btn btn-primary" ng-click="saveToPc(product, product.id+'.json')">Zapisz dane</a>
             </div>
             <button type="button" class="btn btn-default btn-xs pull-right" ng-click="slideToggle(); isCollapsed = !isCollapsed; " style="width:10%">
                 <span class="glyphicon glyphicon-arrow-{{ ng.curly('isCollapsed?"down":"up"') }}"></span>{{ ng.curly('isCollapsed?"Pokaż":"Zwiń"') }} dane
@@ -82,7 +82,7 @@
           <div  class="col-sm-6 col-md-4" >
 
             <div class="thumbnail">
-              <img src="{{ ng.curly('similar.img') }}">
+              <img ng-src="{{ ng.curly('similar.img') }}">
               <div class="caption text-center">
                 <h3>{{ ng.curly('similar.name') }}</h3>
                 <p>

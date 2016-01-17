@@ -1,13 +1,22 @@
 angular
     .module('appModule')
-    .factory('Console', function($filter) {
+    .factory('Console', function($filter, $rootScope) {
         var date = function () {
             return $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
         };
+        function stringStartsWith (string, prefix) {
+            return string.slice(0, prefix.length) == prefix;
+        }
 
         var terminal =
             $('#console').terminal(function(command, term) {
                 if (command !== '') {
+
+                    if (stringStartsWith(command, 'product')) {
+                        $rootScope.$emit('product', command);
+                        return;
+                    }
+
                     var result = window.eval(command);
                     if (result != undefined) {
                         term.echo(String(result));

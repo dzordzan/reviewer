@@ -10,6 +10,7 @@ function ProductSearchController ($scope, $http, $rootScope, Console) {
     $scope.product = {};
 
     $scope.getLocation = function (val) {
+        Console.echo('Szukam produktow')
         return $http({
                 url: 'api/products/' + val,
                 method: 'GET',
