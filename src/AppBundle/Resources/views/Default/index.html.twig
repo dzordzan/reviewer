@@ -13,7 +13,7 @@
             <input type="search"
                    ng-model="searchProduct"
                    placeholder="Podaj nazwę produktu"
-                   uib-typeahead="searchProduct as searchProduct.word for searchProduct in getLocation($viewValue)"
+                   uib-typeahead="searchProduct as searchProduct.name for searchProduct in getLocation($viewValue)"
                    typeahead-min-length="1"
                    typeahead-no-results="noResults"
                    typeahead-template-url="{{ asset('bundles/app/templates/product-result.tpl.html') }}"
@@ -50,7 +50,6 @@
     <div id="console" class="center-block">
 </div>
 </div>
-    {#ng-show="product.id"#}
     <div
          class='container' ng-controller="ProductController">
 
@@ -64,7 +63,7 @@
             <div class="btn-group-justified">
                 <a href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
                 <a href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
-                <a href="#"  class="btn btn-primary" ng-click="saveToPc(product, product.id+'.json')">Zapisz dane</a>
+                <a href="#"  class="btn btn-primary" ng-click="saveToPc(product, product.id+'.'+saveFormat)">Zapisz dane</a>
             </div>
 
             <button type="button" class="btn btn-default btn-xs pull-right" ng-click="slideToggle(); isCollapsed = !isCollapsed; " style="width:10%">
@@ -74,13 +73,17 @@
                 Zapis w - {{ ng.curly('saveFormat') }}
             </button>
         </div>
+        <div class="clearfix"></div>
+
         <div class="row" id="json-data">
             <div class="col-md-12">
             <pre><json-tree json='product' edit-level='low' collapsed-level='5' class="json-data"></json-tree></pre>
                 {#<pre class="json-data" >{{ ng.curly('product | json') }}</pre>#}
             </div>
         </div>
+
         <div class="clearfix"></div>
+
         <div class="similar" ng-show="similars.length>0">
         <div class="row">
         <div class="col-md-12">

@@ -2,13 +2,15 @@
 
 namespace AppBundle\Controller\Api;
 
-use DOMDocument;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\NamePrefix;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Klasa odpowiedzialna za przetwarzanie zapytań 
  * @NamePrefix("api_")
  */
 class ProductController extends FOSRestController
@@ -124,5 +126,28 @@ class ProductController extends FOSRestController
         return new Response($server_output, Response::HTTP_OK);
 
     }
-	
+
+    /**
+     * This function get product reviews from Skapiec and return it as JSON record
+     * @Post("/api/product/save", name="api_save_product")
+     * @param Request $request
+     * @param $data
+     * @return Response
+     */
+    public function saveProduct(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $data = $request->getContent();
+
+        $serializer = $this->get('jms_serializer');
+
+        $product = $serializer->deserialize($data, 'AppBundle\Entity\Product', 'json');
+
+        $em->persist($product);
+        $em->flush();
+
+        return new Response('OK', Response::HTTP_OK);
+    }
+
 }

@@ -133,7 +133,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
         $scope.similars = [];
         $http({
-            url: 'api/similar/' + $scope.product.word.toLowerCase(),
+            url: 'api/similar/' + $scope.product.name.toLowerCase(),
             method: 'GET',
             transformResponse: undefined
         }).then(function (response) {
@@ -153,11 +153,17 @@ function ProductController ($scope, $http, $rootScope, Console) {
                 var $similar = $(product);
                 var url = $similar.find('a.wrap').attr('href');
                 var img = $similar.find('lazyimg').attr('src');
+                var name = $similar.find('span.title, a.title').text().trim();
+                if (!angular.isDefined(url))
+                {
+                    Console.echo('Produkt o nazwie: "' + name + '" jest odnośnikiem do zewnętrznego sklepu. Pomijam');
+                    return;
+                }
 
                 var similar = {};
                 similar.url = url;
                 similar.img = img;
-                similar.name = $similar.find('span.title, a.title').text().trim();
+                similar.name = name;
                 $scope.similars.push(similar);
 
             });
@@ -180,7 +186,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
          $http
              .get('api/review/similar/'+ similar.category  + "/" + similar.id )
              .then(function (response) {
-                 Console.echo("Pobieranie recenzji produktów podobnych z produktu :" + similar.id);
+                 Console.echo("Pobieranie recenzji produktów podobnych z produktu: " + similar.id);
                  parseSimilarComment($(response.data.replace(/<img[^>]*>/g,"")).find("div.opinion-wrapper"));
             });
     };
@@ -268,6 +274,13 @@ function ProductController ($scope, $http, $rootScope, Console) {
 	 * @param {String}filename
 	 */	
     $scope.saveToPc = function (data, filename) {
+
+        $http({
+            method: 'POST',
+            url: 'api/product/save',
+            data: $scope.product,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
 
         if (!data) {
             Console.error('Brak danych do zapisania');
