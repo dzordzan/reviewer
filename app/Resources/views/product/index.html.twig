@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Product list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>W
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Score</th>
+                <th>Shops</th>
+                <th>Votes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('database_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td><img src="{{ product.image }}"></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.score }}</td>
+                <td>{{ product.shops }}</td>
+                <td>{{ product.votes }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('database_show', { 'id': product.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('database_edit', { 'id': product.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('database_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
