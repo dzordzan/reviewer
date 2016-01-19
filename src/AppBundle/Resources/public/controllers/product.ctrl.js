@@ -233,7 +233,6 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
 	 */	
 	var parseSimilarComment = function (comments) {
 	  angular.forEach(comments, function (value) {
-            $scope.loaderValue += 1;
             var comment = {};
             comment.body = $(value).find('p').text().trim();
             comment.source = 'skapiec.pl';
@@ -325,6 +324,27 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
         e.initMouseEvent('click', true, false, window,
             0, 0, 0, 0, 0, false, false, false, false, 0, null);
         a.dispatchEvent(e);
+    };
+    
+   /** 
+	 * This function sava data to database
+	 * @method saveToDatabase
+	 */	
+    $scope.saveToDatabase = function () {
+
+        if (!angular.isDefined($scope.product)){
+            Console.error('Wybierz produkt!');
+            return;
+        }
+
+        $http({
+            method: 'POST',
+            url: 'api/product/save',
+            data: $scope.product,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        });
+        
+        
     };
 
 }
