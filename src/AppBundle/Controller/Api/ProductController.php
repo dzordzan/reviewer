@@ -21,6 +21,9 @@ class ProductController extends FOSRestController
      * @param $name
      * @return Response
      */
+     /**
+      * lala
+      */
     public function getProductsAction($name)
     {
         $ch = curl_init();
