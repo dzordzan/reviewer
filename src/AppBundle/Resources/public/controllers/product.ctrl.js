@@ -2,11 +2,10 @@ angular
     .module('appModule')
     .controller('ProductController', ProductController);
 
-	
-	/** 
-	 * @Class ProductController
-	 * @constructor
-	 */
+/**
+ * @Class ProductController
+ * @constructor
+ */
 function ProductController ($scope, $http, $rootScope, Console) {
     var vm = this,
         $productDOM,
