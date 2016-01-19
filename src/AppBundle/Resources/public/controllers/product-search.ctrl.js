@@ -2,13 +2,21 @@ angular
     .module('appModule')
     .controller('ProductSearchController', ProductSearchController);
 
-
+	/** 
+	 * @Class ProductSearchController
+	 * @constructor
+	 */
 function ProductSearchController ($scope, $http, $rootScope, Console) {
     var vm = this;
     vm.selected = undefined;
     $scope.iframeHeight = window.innerHeight;
     $scope.product = {};
-
+	
+	/** 
+	 * This function looks for products from Ceneo.pl, based on the characters entered by user
+	 * @method getLocation
+	 * @param {String}val
+	 */	
     $scope.getLocation = function (val) {
         Console.echo('Szukam produktow')
         return $http({
@@ -49,7 +57,13 @@ function ProductSearchController ($scope, $http, $rootScope, Console) {
 
             });
     };
-
+    
+	/** 
+	 * This function maps the selected product model
+	 * @method onSelect
+	 * @param $item
+	 * @param $model
+	 */	
     $scope.onSelect = function($item, $model)
     {
         $rootScope.$emit('productSelected', $model);
