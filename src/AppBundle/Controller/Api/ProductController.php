@@ -85,7 +85,7 @@ class ProductController extends FOSRestController
     }
 
     /**
-     * This function get products list from Ceneo and return it as JSON records
+     * This function get products list from Skapiec and return it as JSON records
      * @Get("/api/similar/{name}", name="api_get_similar", requirements={"name"=".+"})
      * @param $name
      * @return Response
@@ -114,7 +114,7 @@ class ProductController extends FOSRestController
     public function getSimilarReviewAction($id, $catId)
     {
         $ch = curl_init();
-		//http://www.skapiec.pl/site/cat/12/comp/9474148#opinie
+		
         curl_setopt($ch, CURLOPT_URL,"http://www.skapiec.pl/site/cat/" . $catId ."/comp/" . $id);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

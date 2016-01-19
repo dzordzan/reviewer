@@ -2,7 +2,10 @@ angular
     .module('appModule')
     .controller('ProductController', ProductController);
 
-
+/**
+ * @Class ProductController
+ * @constructor
+ */
 function ProductController ($scope, $http, $rootScope, Console) {
     var vm = this,
         $productDOM,
@@ -33,11 +36,19 @@ function ProductController ($scope, $http, $rootScope, Console) {
         $scope.$apply(function(){$scope.product[index.trim()] = value.trim();});
 
     });
-
+	
+	/** 
+	 * This function shows or  hides data block.
+	 * @method slideToggle
+	 */
     $scope.slideToggle = function() {
         $('#json-data').slideToggle();
     };
-
+    
+	/** 
+	 * This function fetch and transformation product data from Ceneo.
+	 * @method getProductInfo
+	 */
     $scope.getProductInfo = function () {
         if (!angular.isDefined($scope.product)){
             Console.error('Wyszukaj i wybierz produkt wcześniej');
@@ -66,14 +77,22 @@ function ProductController ($scope, $http, $rootScope, Console) {
             }
             });
     };
-
+    
+	/** 
+	 * This function fetch product image from Ceneo.
+	 * @method getImages
+	 */	
     $scope.getImages = function () {
         $scope.product.images = [];
         $productDOM.find('#product-carousel a.js_gallery-anchor[href^="//"]').each(function(index, element) {
             $scope.product.images.push(element.href);
         });
     };
-
+	
+	/** 
+	 * This function fetch product reviews from Ceneo.
+	 * @method getProductReviews
+	 */		
     $scope.getProductReviews = function () {
         $scope.product.reviews = [];
         Console.echo("Pobieranie recenzji produktu");
@@ -100,7 +119,11 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
         }
     };
-
+    
+	/** 
+	 * This function searches and displays related products from the site skapiec.pl
+	 * @method getSimilar
+	 */	
     $scope.getSimilar = function () {
         if (!angular.isDefined($scope.product)){
             Console.error('Wybierz produkt!');
@@ -147,6 +170,11 @@ function ProductController ($scope, $http, $rootScope, Console) {
         });
     };
 
+	/** 
+	 * This function searches and displays related products from the site skapiec.pl
+	 * @method getSimilarReviews
+	 * @param {Object}similar
+	 */	
 	  $scope.getSimilarReviews = function (similar) {
         similar.category = similar.url.match(/cat\/(\d+)\//)[1];
         similar.id = similar.url.match(/\/(\d+)$/)[1];
@@ -159,11 +187,14 @@ function ProductController ($scope, $http, $rootScope, Console) {
              .then(function (response) {
                  Console.echo("Pobieranie recenzji produktów podobnych z produktu: " + similar.id);
                  parseSimilarComment($(response.data.replace(/<img[^>]*>/g,"")).find("div.opinion-wrapper"));
-
             });
     };
 
-
+	/** 
+	 * This function parse reviews from Ceneo.pl
+	 * @method parseComment
+	 * @param {String}comments
+	 */	
     var parseComment = function (comments) {
         angular.forEach(comments, function (value) {
             $scope.loaderValue += 1;
@@ -174,6 +205,11 @@ function ProductController ($scope, $http, $rootScope, Console) {
         });
     };
 
+	/** 
+	 * This function parse reviews from Skapiec.pl
+	 * @method parseSimilarComment
+	 * @param {String}comments
+	 */	
 	var parseSimilarComment = function (comments) {
 	  angular.forEach(comments, function (value) {
             $scope.loaderValue += 1;
@@ -184,6 +220,13 @@ function ProductController ($scope, $http, $rootScope, Console) {
         });
 	};
 
+	/** 
+	 * This function parses json to xml
+	 * @method json2xml
+	 * @param o
+	 * @param tab
+	 * @return {String}xml
+	 */	
     function json2xml(o, tab) {
         var toXml = function(v, name, ind) {
             var xml = "";
@@ -222,7 +265,13 @@ function ProductController ($scope, $http, $rootScope, Console) {
             xml += toXml(o[m], m, "");
         return tab ? xml.replace(/\t/g, tab) : xml.replace(/\t|\n/g, "");
     }
-
+	
+	/** 
+	 * This function handles downloads
+	 * @method saveToPc
+	 * @param {Object}data
+	 * @param {String}filename
+	 */	
     $scope.saveToPc = function (data, filename) {
 
         $http({
