@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * Klasa odpowiedzialna za przetwarzanie zapytań 
  * @NamePrefix("api_")
  */
 class ProductController extends FOSRestController
