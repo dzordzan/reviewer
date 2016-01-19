@@ -11,7 +11,8 @@ function ProductSearchController ($scope, $http, $rootScope, Console) {
     vm.selected = undefined;
     $scope.iframeHeight = window.innerHeight;
     $scope.product = {};
-	
+    $scope.animation = 'infinite';
+
 	/** 
 	 * This function looks for products from Ceneo.pl, based on the characters entered by user
 	 * @method getLocation

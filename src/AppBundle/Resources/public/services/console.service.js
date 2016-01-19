@@ -1,6 +1,6 @@
 angular
     .module('appModule')
-    .factory('Console', function($filter, $rootScope) {
+    .factory('Console', function($filter, $rootScope, ipCookie) {
         var date = function () {
             return $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
         };
@@ -17,13 +17,22 @@ angular
                         return;
                     }
 
+                    if (stringStartsWith(command, 'process')) {
+                            ipCookie('process',
+                                command.split('=')[1]).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+                            term.echo('Zmienna process została zapisana!')
+                        return;
+                    }
+
                     var result = window.eval(command);
                     if (result != undefined) {
                         term.echo(String(result));
                     }
                 }
             }, {
-                greetings: 'Wersja aplikacji 0.0.1',
+                greetings: 'Wersja aplikacji 0.0.1'+
+                '\nwpisz: [[b;lime;]process=auto] aby zautomatyzować proces pobierania danych'+
+                ' lub [[b;lime;]process=manual] aby przywrócić domyślnie',
                 name: 'console',
                 height: 150,
                 prompt: '#'
