@@ -10,14 +10,14 @@
             <script src="{{ asset('assets/vendor/json-tree/json-tree.js') }}"></script>
             <script src="{{ asset('assets/vendor/angular-bootstrap/ui-bootstrap-tpls.min.js') }}"></script>
             <script src="{{ asset('assets/vendor/jquery.terminal/js/jquery.terminal-0.9.3.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/angular-cookie/angular-cookie.min.js') }}"></script>
+            <script src="{{ asset('assets/vendor/angular-tour/dist/angular-tour-tpls.min.js') }}"></script>
 
             <script src="{{ asset('bundles/app/js/app.js') }}"></script>
 
             <script src="{{ asset('bundles/app/directives/loading-mask.directive.js') }}"></script>
             <script src="{{ asset('bundles/app/directives/resize.directive.js') }}"></script>
             <script src="{{ asset('bundles/app/services/console.service.js') }}"></script>
-
-
 
             <script src="{{ asset('bundles/app/controllers/product.ctrl.js') }}"></script>
             <script src="{{ asset('bundles/app/controllers/product-search.ctrl.js') }}"></script>
@@ -29,12 +29,13 @@
         <link href="{{ asset('assets/vendor/jquery.terminal/css/jquery.terminal-0.9.2.css') }}" rel="stylesheet">
         <link href="{{ asset('bundles/app/css/main.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/vendor/json-tree/json-tree.css') }}" rel="stylesheet">
-
+        <link href="{{ asset('assets/vendor/angular-tour/dist/angular-tour.css') }}" rel="stylesheet" type="text/css"/>
     </head>
     <body>
 
     {% block body %}
     {% endblock %}
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">

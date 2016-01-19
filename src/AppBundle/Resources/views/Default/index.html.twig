@@ -6,9 +6,8 @@
 {% import _self as ng %}
 
 {% block body %}
-
-
-    <div id="search" clas="open" ng-controller="ProductSearchController">
+    <div loading-mask class="loading"></div>
+    <div id="search" ng-controller="ProductSearchController" class="animated {{ ng.curly('animation') }} pulse" ng-click="animation=false">
 
             <input type="search"
                    ng-model="searchProduct"
@@ -23,7 +22,6 @@
                    id="search-input"
                    {#ng-style="{'background': 'url('+(searchProduct.image)+') no-repeat scroll 100px 100%'}"#}>
 
-        <div loading-mask class="loading"></div>
 
         <ul ng-show="noResults" class="dropdown-menu custom-popup" role="listbox"
             uib-dropdown uib-dropdown-toggle auto-close="disabled" is-open="true"
@@ -41,7 +39,6 @@
     </div>
 
 
-</div>
 <div class="container">
 
 
@@ -60,12 +57,13 @@
         </div>
 
         <div class="button-list">
-            <div class="btn-group-justified">
-                <a href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
-                <a href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
-                <a href="#"  class="btn btn-primary" ng-click="saveToPc(product, product.id+'.'+saveFormat)">Zapisz dane</a>
-            </div>
-
+            <tour step="currentStep" post-step="stepComplete()">
+                <div class="btn-group-justified">
+                    <a tourtip="Kliknij w ten przycisk, aby pobrać dane o wybranym produkcie z serwisu ceneo" href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
+                    <a tourtip="Klknij, aby pobrać listę podobnych produktów z serwisu skapiec.pl" href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
+                    <a tourtip="Klknij, jeśli chcesz zapisać dane do pliku w wybranym formacie" href="#"  class="btn btn-primary" ng-click="saveToPc(product, product.id+'.'+saveFormat)">Zapisz dane</a>
+                </div>
+            </tour>
             <button type="button" class="btn btn-default btn-xs pull-right" ng-click="slideToggle(); isCollapsed = !isCollapsed; " style="width:10%">
                 <span class="glyphicon glyphicon-arrow-{{ ng.curly('isCollapsed?"down":"up"') }}"></span>{{ ng.curly('isCollapsed?"Pokaż":"Zwiń"') }} dane
             </button>
@@ -74,6 +72,7 @@
             </button>
         </div>
         <div class="clearfix"></div>
+
 
         <div class="row" id="json-data">
             <div class="col-md-12">
