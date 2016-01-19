@@ -16,6 +16,8 @@ function ProductController ($scope, $http, $rootScope, Console) {
     $rootScope.$on('productSelected', function(event, model) {
         //$scope.setProductModel(model.id);
         $scope.product = model;
+        $scope.product.reviews = [];
+
         $scope.similars = [];
 
     });
@@ -38,7 +40,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
     $scope.getProductInfo = function () {
         if (!angular.isDefined($scope.product)){
-            Console.error('Wyszukaj i wybierz produkt wcześniej!')
+            Console.error('Wyszukaj i wybierz produkt wcześniej');
             return;
         }
         $http({
@@ -99,13 +101,11 @@ function ProductController ($scope, $http, $rootScope, Console) {
         }
     };
 
-
     $scope.getSimilar = function () {
         if (!angular.isDefined($scope.product)){
-            Console.error('Wybierz produkt!')
+            Console.error('Wybierz produkt!');
             return;
         }
-        Console.echo("Szukanie produktow podobnych");
 
         $scope.similars = [];
         $http({
@@ -116,10 +116,9 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
             $similarDOM = $(response.data.replace(/<img([^>]*)>/g,"<lazyimg $1>"));
             var $products = $similarDOM.find('div.partial.products.js.results div.partial');
-            Console.echo("Znaleziono "+$products.length+" produkt(ów) podobnych");
-
+            Console.echo("Znaleziono "+$products.length+" produkt(ów) podobnych ");
             if ($products.length == 0) {
-                Console.error("Dostosuj ręcznie nazwę produktu i spróbuj ponownie!");
+                Console.error("Dostosuj ręcznie nazwę produktu i spróbuj ponownie");
             } else {
                 if (!$scope.isCollapsed) {
                     $scope.isCollapsed = true;
@@ -142,14 +141,42 @@ function ProductController ($scope, $http, $rootScope, Console) {
         });
     };
 
+	  $scope.getSimilarReviews = function (similar) {
+        similar.category = similar.url.match(/cat\/(\d+)\//)[1];
+        similar.id = similar.url.match(/\/(\d+)$/)[1];
+
+        $scope.similars.reviews = [];
+
+
+         $http
+             .get('api/review/similar/'+ similar.category  + "/" + similar.id )
+             .then(function (response) {
+                 Console.echo("Pobieranie recenzji produktów podobnych z produktu :" + similar.id);
+                 parseSimilarComment($(response.data.replace(/<img[^>]*>/g,"")).find("div.opinion-wrapper"));
+
+            });
+    };
+
+
     var parseComment = function (comments) {
         angular.forEach(comments, function (value) {
             $scope.loaderValue += 1;
-            var comment = $(value).find('p.product-review-body').text().trim();
-
+            var comment = {};
+            comment.body = $(value).find('p.product-review-body').text().trim();
+            comment.source = 'ceneo.pl';
             $scope.product.reviews.push(comment);
         });
     };
+
+	var parseSimilarComment = function (comments) {
+	  angular.forEach(comments, function (value) {
+            $scope.loaderValue += 1;
+            var comment = {};
+            comment.body = $(value).find('p').text().trim();
+            comment.source = 'skapiec.pl';
+            $scope.product.reviews.push(comment);
+        });
+	};
 
     function json2xml(o, tab) {
         var toXml = function(v, name, ind) {

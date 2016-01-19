@@ -64,7 +64,7 @@
             <div class="btn-group-justified">
                 <a href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
                 <a href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
-                <a href="#" class="btn btn-primary" ng-click="saveToPc(product, product.id+'.json')">Zapisz dane</a>
+                <a href="#"  class="btn btn-primary" ng-click="saveToPc(product, product.id+'.json')">Zapisz dane</a>
             </div>
 
             <button type="button" class="btn btn-default btn-xs pull-right" ng-click="slideToggle(); isCollapsed = !isCollapsed; " style="width:10%">
@@ -97,7 +97,7 @@
               <div class="caption text-center">
                 <h3>{{ ng.curly('similar.name') }}</h3>
                 <p>
-                <a href="#" class="btn btn-primary" role="button">ładuj komentarze</a>
+                <a href="#" class="btn btn-primary" id={{ ng.curly('similar.url') }} role="button" ng-click="getSimilarReviews(similar)">Ładuj komentarze</a>
                 </p>
                 </div>
               </div>

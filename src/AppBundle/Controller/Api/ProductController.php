@@ -101,4 +101,28 @@ class ProductController extends FOSRestController
 
         return new Response($server_output, Response::HTTP_OK);
     }
+	
+	/**
+     * This function get product reviews from Skapiec and return it as JSON record
+     * @Get("/api/review/similar/{catId}/{id}", name="api_get_similar_review")
+     * @param $id
+	 * @param $catid
+     * @return Response
+     */
+    public function getSimilarReviewAction($id, $catId)
+    {
+        $ch = curl_init();
+		//http://www.skapiec.pl/site/cat/12/comp/9474148#opinie
+        curl_setopt($ch, CURLOPT_URL,"http://www.skapiec.pl/site/cat/" . $catId ."/comp/" . $id);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec ($ch);
+
+        curl_close ($ch);
+
+        return new Response($server_output, Response::HTTP_OK);
+
+    }
+	
 }
