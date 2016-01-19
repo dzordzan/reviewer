@@ -104,7 +104,7 @@ class ProductController extends FOSRestController
 	
 	/**
      * This function get product reviews from Skapiec and return it as JSON record
-     * @Get("/api/review/similar/{id}/{catId}", name="api_get_similar_review")
+     * @Get("/api/review/similar/{catId}/{id}", name="api_get_similar_review")
      * @param $id
 	 * @param $catid
      * @return Response

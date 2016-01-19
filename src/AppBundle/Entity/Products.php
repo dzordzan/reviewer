@@ -26,98 +26,84 @@ class Products
      *
      * @ORM\Column(name="product_name", type="string", length=255)
      */
-    private $productName;
+    private $name;
 
     /**
      * @var float
      *
      * @ORM\Column(name="product_price", type="float", nullable=true)
      */
-    private $productPrice;
+    private $price;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_category", type="string", length=120)
      */
-    private $productCategory;
+    private $category;
 
     /**
      * @var float
      *
      * @ORM\Column(name="product_score", type="float")
      */
-    private $productScore;
+    private $score;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_shops", type="string", length=255, nullable=true)
      */
-    private $productShops;
+    private $shops;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_votes", type="string", length=255, nullable=true)
      */
-    private $productVotes;
+    private $votes;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_parameters", type="string", length=255, nullable=true)
      */
-    private $productParameters;
+    private $parameters;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_image", type="string", length=255, nullable=true)
      */
-    private $productImage;
+    private $image;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_keys", type="string", length=255, nullable=true)
      */
-    private $productKeys;
+    private $keys;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_vars", type="string", length=255, nullable=true)
      */
-    private $productVars;
+    private $vars;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_reviews", type="string", length=1020, nullable=true)
      */
-    private $productReviews;
+    private $reviews;
 
     /**
      * @var string
      *
      * @ORM\Column(name="product_other_images", type="string", length=1020, nullable=true)
      */
-    private $productOtherImages;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="product_ceneo_id", type="integer")
-     */
-    private $productCeneoId;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="product_similar_id", type="integer", nullable=true)
-     */
-    private $productSimilarId;
+    private $images;
 
 
     /**
@@ -133,13 +119,13 @@ class Products
     /**
      * Set productName
      *
-     * @param string $productName
+     * @param string $name
      *
      * @return Products
      */
-    public function setProductName($productName)
+    public function setName($name)
     {
-        $this->productName = $productName;
+        $this->name = $name;
 
         return $this;
     }
@@ -149,21 +135,21 @@ class Products
      *
      * @return string
      */
-    public function getProductName()
+    public function getName()
     {
-        return $this->productName;
+        return $this->name;
     }
 
     /**
      * Set productPrice
      *
-     * @param float $productPrice
+     * @param float $price
      *
      * @return Products
      */
-    public function setProductPrice($productPrice)
+    public function setPrice($price)
     {
-        $this->productPrice = $productPrice;
+        $this->price = $price;
 
         return $this;
     }
@@ -173,21 +159,21 @@ class Products
      *
      * @return float
      */
-    public function getProductPrice()
+    public function getPrice()
     {
-        return $this->productPrice;
+        return $this->price;
     }
 
     /**
      * Set productCategory
      *
-     * @param string $productCategory
+     * @param string $category
      *
      * @return Products
      */
-    public function setProductCategory($productCategory)
+    public function setCategory($category)
     {
-        $this->productCategory = $productCategory;
+        $this->category = $category;
 
         return $this;
     }
@@ -197,21 +183,21 @@ class Products
      *
      * @return string
      */
-    public function getProductCategory()
+    public function getCategory()
     {
-        return $this->productCategory;
+        return $this->category;
     }
 
     /**
      * Set productScore
      *
-     * @param float $productScore
+     * @param float $score
      *
      * @return Products
      */
-    public function setProductScore($productScore)
+    public function setScore($score)
     {
-        $this->productScore = $productScore;
+        $this->score = $score;
 
         return $this;
     }
@@ -221,21 +207,21 @@ class Products
      *
      * @return float
      */
-    public function getProductScore()
+    public function getScore()
     {
-        return $this->productScore;
+        return $this->score;
     }
 
     /**
      * Set productShops
      *
-     * @param string $productShops
+     * @param string $shops
      *
      * @return Products
      */
-    public function setProductShops($productShops)
+    public function setShops($shops)
     {
-        $this->productShops = $productShops;
+        $this->shops = $shops;
 
         return $this;
     }
@@ -245,21 +231,21 @@ class Products
      *
      * @return string
      */
-    public function getProductShops()
+    public function getShops()
     {
-        return $this->productShops;
+        return $this->shops;
     }
 
     /**
      * Set productVotes
      *
-     * @param string $productVotes
+     * @param string $votes
      *
      * @return Products
      */
-    public function setProductVotes($productVotes)
+    public function setVotes($votes)
     {
-        $this->productVotes = $productVotes;
+        $this->votes = $votes;
 
         return $this;
     }
@@ -269,21 +255,21 @@ class Products
      *
      * @return string
      */
-    public function getProductVotes()
+    public function getVotes()
     {
-        return $this->productVotes;
+        return $this->votes;
     }
 
     /**
      * Set productParameters
      *
-     * @param string $productParameters
+     * @param string $parameters
      *
      * @return Products
      */
-    public function setProductParameters($productParameters)
+    public function setParameters($parameters)
     {
-        $this->productParameters = $productParameters;
+        $this->parameters = $parameters;
 
         return $this;
     }
@@ -293,21 +279,21 @@ class Products
      *
      * @return string
      */
-    public function getProductParameters()
+    public function getParameters()
     {
-        return $this->productParameters;
+        return $this->parameters;
     }
 
     /**
      * Set productImage
      *
-     * @param string $productImage
+     * @param string $image
      *
      * @return Products
      */
-    public function setProductImage($productImage)
+    public function setImage($image)
     {
-        $this->productImage = $productImage;
+        $this->image = $image;
 
         return $this;
     }
@@ -317,21 +303,21 @@ class Products
      *
      * @return string
      */
-    public function getProductImage()
+    public function getImage()
     {
-        return $this->productImage;
+        return $this->image;
     }
 
     /**
      * Set productKeys
      *
-     * @param string $productKeys
+     * @param string $keys
      *
      * @return Products
      */
-    public function setProductKeys($productKeys)
+    public function setKeys($keys)
     {
-        $this->productKeys = $productKeys;
+        $this->keys = $keys;
 
         return $this;
     }
@@ -341,21 +327,21 @@ class Products
      *
      * @return string
      */
-    public function getProductKeys()
+    public function getKeys()
     {
-        return $this->productKeys;
+        return $this->keys;
     }
 
     /**
      * Set productVars
      *
-     * @param string $productVars
+     * @param string $vars
      *
      * @return Products
      */
-    public function setProductVars($productVars)
+    public function setVars($vars)
     {
-        $this->productVars = $productVars;
+        $this->vars = $vars;
 
         return $this;
     }
@@ -365,21 +351,21 @@ class Products
      *
      * @return string
      */
-    public function getProductVars()
+    public function getVars()
     {
-        return $this->productVars;
+        return $this->vars;
     }
 
     /**
      * Set productReviews
      *
-     * @param string $productReviews
+     * @param string $reviews
      *
      * @return Products
      */
-    public function setProductReviews($productReviews)
+    public function setReviews($reviews)
     {
-        $this->productReviews = $productReviews;
+        $this->reviews = $reviews;
 
         return $this;
     }
@@ -389,21 +375,21 @@ class Products
      *
      * @return string
      */
-    public function getProductReviews()
+    public function getReviews()
     {
-        return $this->productReviews;
+        return $this->reviews;
     }
 
     /**
      * Set productOtherImages
      *
-     * @param string $productOtherImages
+     * @param string $images
      *
      * @return Products
      */
-    public function setProductOtherImages($productOtherImages)
+    public function setImages($images)
     {
-        $this->productOtherImages = $productOtherImages;
+        $this->images = $images;
 
         return $this;
     }
@@ -413,57 +399,10 @@ class Products
      *
      * @return string
      */
-    public function getProductOtherImages()
+    public function getImages()
     {
-        return $this->productOtherImages;
+        return $this->images;
     }
 
-    /**
-     * Set productCeneoId
-     *
-     * @param integer $productCeneoId
-     *
-     * @return Products
-     */
-    public function setProductCeneoId($productCeneoId)
-    {
-        $this->productCeneoId = $productCeneoId;
-
-        return $this;
-    }
-
-    /**
-     * Get productCeneoId
-     *
-     * @return int
-     */
-    public function getProductCeneoId()
-    {
-        return $this->productCeneoId;
-    }
-
-    /**
-     * Set productSimilarId
-     *
-     * @param integer $productSimilarId
-     *
-     * @return Products
-     */
-    public function setProductSimilarId($productSimilarId)
-    {
-        $this->productSimilarId = $productSimilarId;
-
-        return $this;
-    }
-
-    /**
-     * Get productSimilarId
-     *
-     * @return int
-     */
-    public function getProductSimilarId()
-    {
-        return $this->productSimilarId;
-    }
 }
 

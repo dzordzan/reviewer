@@ -16,6 +16,8 @@ function ProductController ($scope, $http, $rootScope, Console) {
     $rootScope.$on('productSelected', function(event, model) {
         //$scope.setProductModel(model.id);
         $scope.product = model;
+        $scope.product.reviews = [];
+
         $scope.similars = [];
 
     });
@@ -99,7 +101,6 @@ function ProductController ($scope, $http, $rootScope, Console) {
         }
     };
 
-
     $scope.getSimilar = function () {
         if (!angular.isDefined($scope.product)){
             Console.error('Wybierz produkt!');
@@ -140,31 +141,29 @@ function ProductController ($scope, $http, $rootScope, Console) {
         });
     };
 
-	  $scope.getSimilarReviews = function (event) {
+	  $scope.getSimilarReviews = function (similar) {
+        similar.category = similar.url.match(/cat\/(\d+)\//)[1];
+        similar.id = similar.url.match(/\/(\d+)$/)[1];
+
         $scope.similars.reviews = [];
 
-         $scope.loaderValue = 10;
-         var urlTab = event.target.id.split("/");
-         for (var i = 2; (i-1)*10 < 44; i++) {
-             $http
-                 .get('api/review/similar/'+ urlTab[5]  + "/" + urlTab[3] )
-                 .then(function (response) {
-                 	
-                	 Console.echo("Pobieranie recenzji produktów podobnych z:" + event.target.id);
-                  	 parseSimilarComment($(response.data.replace(/<img[^>]*>/g,"")).find("div.opinion-wrapper"));
-        	
-                    var loaderVal = 10*i++;
-                    $scope.loaderValue = (loaderVal<$scope.loaderMax)?loaderVal:$scope.loaderMax;
-                });
 
-        }
+         $http
+             .get('api/review/similar/'+ similar.category  + "/" + similar.id )
+             .then(function (response) {
+                 Console.echo("Pobieranie recenzji produktów podobnych z produktu :" + similar.id);
+                 parseSimilarComment($(response.data.replace(/<img[^>]*>/g,"")).find("div.opinion-wrapper"));
+
+            });
     };
 
 
     var parseComment = function (comments) {
         angular.forEach(comments, function (value) {
             $scope.loaderValue += 1;
-            var comment = $(value).find('p.product-review-body').text().trim();
+            var comment = {};
+            comment.body = $(value).find('p.product-review-body').text().trim();
+            comment.source = 'ceneo.pl';
             $scope.product.reviews.push(comment);
         });
     };
@@ -172,9 +171,10 @@ function ProductController ($scope, $http, $rootScope, Console) {
 	var parseSimilarComment = function (comments) {
 	  angular.forEach(comments, function (value) {
             $scope.loaderValue += 1;
-            var comment = $(value).find('p').text().trim();
-            $scope.similars.reviews.push(comment);
-            Console.echo(comment);
+            var comment = {};
+            comment.body = $(value).find('p').text().trim();
+            comment.source = 'skapiec.pl';
+            $scope.product.reviews.push(comment);
         });
 	};
 
