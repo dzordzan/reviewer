@@ -3,8 +3,11 @@
  */
 
 angular
-    .module('appModule', ['ui.bootstrap', 'json-tree'])
-    .config(function ($httpProvider, $provide) {
+    .module('appModule', ['ui.bootstrap', 'json-tree', 'ipCookie', 'angular-tour'])
+    .config(function ($httpProvider, $provide, tourConfig) {
+        tourConfig.placement = 'bottom';
+        tourConfig.nextLabel = 'dalej';
+
         $provide.factory('httpInterceptor', function ($q, $rootScope, Console) {
             return {
                 'request': function (config) {
