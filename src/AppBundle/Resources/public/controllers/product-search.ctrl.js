@@ -23,7 +23,7 @@ function ProductSearchController ($scope, $http, $rootScope, Console) {
                 $.each($products, function(index, productDOM){
                     var product = {};
                     product.id = $(productDOM).parent().data('pid');
-                    product.word = $(productDOM).find('strong.cat-prod-row-name').text().trim();
+                    product.name = $(productDOM).find('strong.cat-prod-row-name').text().trim();
                     product.price =  $(productDOM).find('strong.price').text().trim();
                     product.category =  $(productDOM).find('p.cat-prod-row-category a.dotted-link').text().trim();
                     product.score =  $(productDOM).find('span.product-score').children().remove().end().text().trim();
