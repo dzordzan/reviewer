@@ -6,7 +6,7 @@ angular
  * @Class ProductController
  * @constructor
  */
-function ProductController ($scope, $http, $rootScope, Console) {
+function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
     var vm = this,
         $productDOM,
         $similarDOM,
@@ -15,6 +15,16 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
     $scope.product = {};
     $scope.saveFormat = 'JSON';
+    $scope.process = ipCookie('process') || 'manual';
+    // load cookie, or start new tour
+    $scope.currentStep = ipCookie('myTour') || 0;
+
+    // save cookie after each step
+    $scope.stepComplete = function() {
+        ipCookie('myTour', $scope.currentStep, { expires: 1 });
+    };
+
+
 
     $rootScope.$on('productSelected', function(event, model) {
         //$scope.setProductModel(model.id);
@@ -22,7 +32,9 @@ function ProductController ($scope, $http, $rootScope, Console) {
         $scope.product.reviews = [];
 
         $scope.similars = [];
-
+        if ($scope.process === 'auto') {
+            $scope.getProductInfo();
+        }
     });
 
     $rootScope.$on('product', function(event, command) {
@@ -50,7 +62,7 @@ function ProductController ($scope, $http, $rootScope, Console) {
 	 * @method getProductInfo
 	 */
     $scope.getProductInfo = function () {
-        if (!angular.isDefined($scope.product)){
+        if (!angular.isDefined($scope.product.name)){
             Console.error('Wyszukaj i wybierz produkt wcześniej');
             return;
         }
@@ -115,6 +127,15 @@ function ProductController ($scope, $http, $rootScope, Console) {
 
                     var loaderVal = 10*currentPage++;
                     $scope.loaderValue = (loaderVal<$scope.loaderMax)?loaderVal:$scope.loaderMax;
+
+                    if ($scope.loaderValue === $scope.loaderMax && $scope.process === 'auto') {
+                        $scope.getSimilar();
+
+                        setTimeout(function(){
+                            $scope.saveToPc($scope.product, $scope.product.id +'.'+$scope.saveFormat);
+                        }, 1500);
+
+                    }
                 });
 
         }
