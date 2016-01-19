@@ -1,0 +1,46 @@
+body{
+	font:"MS Serif", "New York", serif;
+	text-align:center;
+}
+
+
+ul {
+	list-style: none;
+}
+
+table{
+	text-align: center;
+	vertical-align: middle;
+	margin-top: 15px;
+}
+
+table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    vertical-align: middle !important;
+}
+
+.action-btn{
+	width: 80px;
+	margin-top: 10px;
+}
+
+th{
+	text-align: center;
+}
+img{
+	max-height: 200px;
+	max-width: 200px;
+}
+
+.navbar-default {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-color: #282828;
+    color: rgba(255, 255, 255, 0.77);
+}
+
+.list-inline{
+	margin-top: 80px;
+}
+
+.btn-top{
+	width: 300px;
+}

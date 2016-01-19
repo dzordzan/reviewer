@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <h1>Product list</h1>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <h2>Lista produktów</h2>		
+</nav>	
 
-    <table>
+	<ul class="list-inline">
+		<li><a href="/" class="btn btn-primary top-btn">Coś tu będzie</a></li>
+		<li><a href="/" class="btn btn-danger top-btn">Wyczyść baze danych</a></li>
+		
+	</ul>
+	<div class="table-responsive">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Image</th>W
+                <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Category</th>
@@ -31,10 +38,10 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('database_show', { 'id': product.id }) }}">show</a>
+                            <a href="{{ path('database_show', { 'id': product.id }) }}" class="btn btn-info action-btn">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('database_edit', { 'id': product.id }) }}">edit</a>
+                            <a href="{{ path('database_edit', { 'id': product.id }) }}" class="btn btn-danger action-btn">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -42,10 +49,6 @@
         {% endfor %}
         </tbody>
     </table>
+	</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('database_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}
