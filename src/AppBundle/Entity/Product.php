@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="products")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProductsRepository")
  */
-class Products
+class Product
 {
     /**
      * @var int
@@ -24,84 +24,84 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="product_name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="product_price", type="float", nullable=true)
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_category", type="string", length=120)
+     * @ORM\Column(name="category", type="string", length=120, nullable=true)
      */
     private $category;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="product_score", type="float")
+     * @ORM\Column(name="score", type="float", nullable=true)
      */
     private $score;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_shops", type="string", length=255, nullable=true)
+     * @ORM\Column(name="shops", type="string", length=255, nullable=true)
      */
     private $shops;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_votes", type="string", length=255, nullable=true)
+     * @ORM\Column("votes", type="string", length=255, nullable=true)
      */
     private $votes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_parameters", type="string", length=255, nullable=true)
+     * @ORM\Column(name="parameters", type="array", nullable=true)
      */
     private $parameters;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_image", type="string", length=255, nullable=true)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_keys", type="string", length=255, nullable=true)
+     * @ORM\Column(name="vars_keys", type="string", length=255, nullable=true)
      */
     private $keys;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_vars", type="string", length=255, nullable=true)
+     * @ORM\Column(name="vars", type="string", length=255, nullable=true)
      */
     private $vars;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_reviews", type="string", length=1020, nullable=true)
+     * @ORM\Column(name="reviews", type="array", nullable=true)
      */
     private $reviews;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="product_other_images", type="string", length=1020, nullable=true)
+     * @ORM\Column(name="images", type="array", nullable=true)
      */
     private $images;
 
