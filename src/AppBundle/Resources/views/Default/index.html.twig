@@ -69,8 +69,8 @@
             <tour step="currentStep" post-step="stepComplete()">
                 <div class="btn-group-justified">
                     <a tourtip-step="0" tourtip="Kliknij w ten przycisk, aby pobrać dane o wybranym produkcie z serwisu ceneo" href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
-                    <a tourtip="Klknij, aby pobrać listę podobnych produktów z serwisu skapiec.pl" href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
-                    <a tourtip="Klknij, jeśli chcesz zapisać dane do pliku w wybranym formacie" href="#"  class="btn btn-primary btn-success" ng-click="saveToPc(product, product.id+'.'+saveFormat)">Zapisz dane</a>
+                    <a tourtip="Kliknij, aby pobrać listę podobnych produktów z serwisu skapiec.pl" href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
+                    <a tourtip="Kliknij, jeśli chcesz zapisać dane do pliku w wybranym formacie" href="#"  class="btn btn-primary btn-success" ng-click="saveToPc(product, product.id+'.'+saveFormat)">Zapisz dane</a>
                     <a tourtip="Kliknij, aby przeglądać i edytować bazę danych" href="{{ path('database_index') }}"  class="btn btn-primary">Wyświetl zapisane</a>
                 </div>
             </tour>

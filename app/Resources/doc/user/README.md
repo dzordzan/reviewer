@@ -11,7 +11,7 @@
 
 ### 1. Uruchomienie i pierwsze wyszukanie produktu
 
-Po przejściu na stronę aplikacji ([http://v-ie.uek.krakow.pl/~s174644/app_dev.php](http://v-ie.uek.krakow.pl/~s174644/app_dev.php)) użytkownik może zobaczyć layout programu.
+Po przejściu na stronę aplikacji ([http://v-ie.uek.krakow.pl/~s174644/app_dev.php/](http://v-ie.uek.krakow.pl/~s174644/app_dev.php/)) użytkownik może zobaczyć layout programu.
 
 ![](image_0.png)
 

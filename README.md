@@ -14,7 +14,7 @@ Aplication is based on:
 
 ### Technologies
 
-Reviewr uses a number of open source projects to work properly:
+Reviewer uses a number of open source projects to work properly:
 
 * [AngularJS] - HTML enhanced for web apps!
 * [Marked] - a super fast port of Markdown to JavaScript
