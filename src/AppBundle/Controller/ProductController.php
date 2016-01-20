@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Product;
 use AppBundle\Form\ProductType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Product controller.
@@ -105,7 +106,7 @@ class ProductController extends Controller
     /**
      * Deletes a Product entity.
      *
-     * @Route("/{id}", name="database_delete")
+     * @Route("/{id}", name="product_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Product $product)
@@ -118,6 +119,27 @@ class ProductController extends Controller
             $em->remove($product);
             $em->flush();
         }
+
+        return $this->redirectToRoute('database_index');
+    }
+
+    /**
+     * Deletes a whole database.
+     *
+     * @Route("/delete/whole/{pass}", name="database_delete")
+     * @Method("GET")
+     */
+    public function deleteDatabaseAction(Request $request, $pass)
+    {
+        if ($pass !== 'angólar') {
+            throw $this->createAccessDeniedException('Nie masz uprawnień do wykonania tej operacji');
+        }
+
+        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product');
+
+        $em->createQueryBuilder('p')
+            ->delete()
+            ->getQuery()->execute();
 
         return $this->redirectToRoute('database_index');
     }
