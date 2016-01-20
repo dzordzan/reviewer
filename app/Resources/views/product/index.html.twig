@@ -5,8 +5,9 @@
 </nav>	
 
 	<ul class="list-inline">
-		<li><a href="/" class="btn btn-primary top-btn">Coś tu będzie</a></li>
-		<li><a href="/" class="btn btn-danger top-btn">Wyczyść baze danych</a></li>
+		<li><a href="{{ path('app_default_index') }}" class="btn btn-primary top-btn">Wróć do strony głównej</a></li>
+		<li><a href="{{ path('database_delete', {pass: 'ddd'}) }}" class="btn btn-danger top-btn">Wyczyść baze danych</a>
+        </li>
 		
 	</ul>
 	<div class="table-responsive">
