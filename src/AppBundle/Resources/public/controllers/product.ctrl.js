@@ -146,7 +146,7 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
 	 * @method getSimilar
 	 */	
     $scope.getSimilar = function () {
-        if (!angular.isDefined($scope.product)){
+        if (!angular.isDefined($scope.product.name)){
             Console.error('Wybierz produkt!');
             return;
         }
