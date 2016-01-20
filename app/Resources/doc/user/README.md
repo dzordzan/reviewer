@@ -16,7 +16,7 @@ Damian Skakuj
 
 Po przejściu na stronę aplikacji ([http://v-ie.uek.krakow.pl/~s174644/app_dev.php](http://v-ie.uek.krakow.pl/~s174644/app_dev.php)) użytkownik może zobaczyć layout programu.
 
-![](Kopia Dokumentacja użytkownika_images/image_0.png)
+![](image_0.png)
 
 Przy pierwszej wizycie na podanej stronie aktywowane są "dymki", które wyjaśniają użytkownikowi jak powinien korzystać z aplikacji. Górna belka strony jest miejscem gdzie użytkownik musi wpisać poszukiwany przedmiot, a następnie wybrać go z rozwijanej listy, jak na poniższym obrazku.
 
