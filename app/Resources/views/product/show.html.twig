@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Product</h1>
-
-    <table>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <h2>Product</h2>
+</nav>	
+<div class="container">
+    <table class="table table-striped table-bordered show-tab">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -34,10 +36,6 @@
                 <td>{{ product.votes }}</td>
             </tr>
             <tr>
-                <th>Parameters</th>
-                <td>{% if product.parameters %}{{ product.parameters|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
                 <th>Image</th>
                 <td>{{ product.image }}</td>
             </tr>
@@ -50,27 +48,22 @@
                 <td>{{ product.vars }}</td>
             </tr>
             <tr>
-                <th>Reviews</th>
-                <td>{% if product.reviews %}{{ product.reviews|join(', ') }}{% endif %}</td>
-            </tr>
-            <tr>
                 <th>Images</th>
                 <td>{% if product.images %}{{ product.images|join(', ') }}{% endif %}</td>
             </tr>
         </tbody>
     </table>
 
-    <ul>
+    <ul class="list-inline">
         <li>
-            <a href="{{ path('database_index') }}">Back to the list</a>
+            <a href="{{ path('database_index') }}" class="btn btn-primary action-btn">Lista</a>
         </li>
         <li>
-            <a href="{{ path('database_edit', { 'id': product.id }) }}">Edit</a>
+            <a href="{{ path('database_edit', { 'id': product.id }) }}"class="btn btn-info action-btn">Edycja</a>
         </li>
         <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <a href="{{ path('database_delete', { 'id': product.id }) }}" class="btn btn-danger action-btn">Usuń</a>
         </li>
     </ul>
+    </div>
 {% endblock %}
