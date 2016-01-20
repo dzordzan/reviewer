@@ -130,9 +130,9 @@ class ProductController extends FOSRestController
     /**
      * This function save product data into database
      * @Post("/api/product/save", name="api_save_product")
-     * @param Request $request / nie wiem
-     * @param $data / nie wiem
-     * @return mixed Response / nie wiem
+     * @param Request $request User requst
+     * @param $data Json data
+     * @return mixed Response web page response
      */
     public function saveProduct(Request $request)
     {
