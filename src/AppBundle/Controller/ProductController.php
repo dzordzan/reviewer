@@ -42,7 +42,7 @@ class ProductController extends Controller
      * @Route("/{id}", name="database_show")
      * @Method("GET")
      * @param Product $product
-     * @return $product / dopisz typ - nie wiem
+     * @return Product $product Product entity
      */
     public function showAction(Product $product)
     {
@@ -59,7 +59,7 @@ class ProductController extends Controller
      * @Method({"GET", "POST"})
      * @param Request $request
      * @param Product $product
-     * @return / dopisz - nie wiem
+     * @return Edit page
      */
     public function editAction(Request $request, Product $product)
     {
@@ -89,7 +89,7 @@ class ProductController extends Controller
      * @Method("GET")
      * @param Request $request
      * @param Product $product
-     * @return / dopisz - nie wiem
+     * @return index page
      */
     public function deleteAction(Request $request, Product $product)
     {
