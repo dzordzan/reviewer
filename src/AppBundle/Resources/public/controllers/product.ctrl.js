@@ -106,7 +106,7 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
 	 * @method getProductReviews
 	 */		
     $scope.getProductReviews = function () {
-        $scope.product.reviews = [];
+       
         Console.echo("Pobieranie recenzji produktu");
 
         var reviewCount = $scope.product.more.vars.ReviewCount;
@@ -201,8 +201,7 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
         similar.id = similar.url.match(/\/(\d+)$/)[1];
 
         $scope.similars.reviews = [];
-
-
+        
          $http
              .get('api/review/similar/'+ similar.category  + "/" + similar.id )
              .then(function (response) {
@@ -294,6 +293,11 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
 	 */	
     $scope.saveToPc = function (data, filename) {
 
+		if (!angular.isDefined($scope.product.name)){
+            Console.error('Wybierz produkt!');
+            return;
+        }
+		
         $http({
             method: 'POST',
             url: 'api/product/save',
@@ -331,8 +335,7 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
 	 * @method saveToDatabase
 	 */	
     $scope.saveToDatabase = function () {
-
-        if (!angular.isDefined($scope.product)){
+        if (!angular.isDefined($scope.product.name)){
             Console.error('Wybierz produkt!');
             return;
         }
