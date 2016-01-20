@@ -42,7 +42,10 @@
                             <a href="{{ path('database_show', { 'id': product.id }) }}" class="btn btn-info action-btn">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('database_edit', { 'id': product.id }) }}" class="btn btn-danger action-btn">edit</a>
+                            <a href="{{ path('database_edit', { 'id': product.id }) }}" class="btn btn-primary action-btn">edit</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('database_delete', { 'id': product.id }) }}" class="btn btn-danger action-btn">delete</a>
                         </li>
                     </ul>
                 </td>
