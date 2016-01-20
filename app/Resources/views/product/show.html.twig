@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Produkt - {{ product.name }}
+{% endblock %}
 {% block body %}
-<nav class="navbar navbar-default navbar-fixed-top">
-    <h2>Product</h2>
-</nav>	
+
 <div class="container">
     <table class="table table-striped table-bordered show-tab">
         <tbody>
@@ -49,7 +50,29 @@
             </tr>
             <tr>
                 <th>Images</th>
-                <td>{% if product.images %}{{ product.images|join(', ') }}{% endif %}</td>
+                <td><ul class="list-group">
+
+                    {% for image in product.images %}
+                       <li>
+                           {{ image }}
+                       </li>
+                    {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Reviews</th>
+                <td><ul class="list-group">
+
+                    {% for review in product.reviews %}
+                       <li>
+                           {{ review.source }}
+                           <br/>
+                           {{ review.body }}
+                       </li>
+                    {% endfor %}
+                    </ul>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -58,12 +81,12 @@
         <li>
             <a href="{{ path('database_index') }}" class="btn btn-primary action-btn">Lista</a>
         </li>
-        <li>
-            <a href="{{ path('database_edit', { 'id': product.id }) }}"class="btn btn-info action-btn">Edycja</a>
-        </li>
-        <li>
-            <a href="{{ path('database_delete', { 'id': product.id }) }}" class="btn btn-danger action-btn">Usuń</a>
-        </li>
+        {#<li>#}
+            {#<a href="{{ path('database_edit', { 'id': product.id }) }}"class="btn btn-info action-btn">Edycja</a>#}
+        {#</li>#}
+        {#<li>#}
+            {#<a href="{{ path('database_delete', { 'id': product.id }) }}" class="btn btn-danger action-btn">Usuń</a>#}
+        {#</li>#}
     </ul>
     </div>
 {% endblock %}

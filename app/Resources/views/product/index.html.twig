@@ -6,7 +6,7 @@
 
 	<ul class="list-inline">
 		<li><a href="{{ path('app_default_index') }}" class="btn btn-primary top-btn">Wróć do strony głównej</a></li>
-		<li><button class="btn btn-danger top-btn" data-toggle="modal" data-target="#myModal">Wyczyść baze danych</a>
+		<li><button data-href="{{ path('database_delete') }}" class="btn btn-danger top-btn" data-toggle="modal" data-target="#myModal">Wyczyść baze danych</button>
         </li>
 		
 	</ul>
@@ -39,13 +39,13 @@
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('database_show', { 'id': product.id }) }}" class="btn btn-info action-btn">show</a>
+                            <a href="{{ path('database_show', { 'id': product.id }) }}" class="btn btn-info action-btn">Pokaz</a>
                         </li>
+                        {#<li>#}
+                            {#<a href="{{ path('database_edit', { 'id': product.id }) }}" class="btn btn-primary action-btn">edit</a>#}
+                        {#</li>#}
                         <li>
-                            <a href="{{ path('database_edit', { 'id': product.id }) }}" class="btn btn-primary action-btn">edit</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('database_delete', { 'id': product.id }) }}" class="btn btn-danger action-btn">delete</a>
+                            <button data-toggle="modal" data-target="#myModal" data-href="{{ path('product_delete', { 'id': product.id }) }}" class="btn btn-danger action-btn">Skasuj</button>
                         </li>
                     </ul>
                 </td>
@@ -63,7 +63,13 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Wymagana autoryzacja</h4>
                 </div>
-                <form methord="get" action="{{ path('database_delete') }}" role="form" class="form-inline">
+                <form methord="get" role="form" class="form-inline">
+                    <script>
+                        $('#myModal').on('show.bs.modal', function (e) {
+                            var $element = $(e.relatedTarget);
+                            $('form').attr('action', $element.data('href'));
+                        });
+                    </script>
                     <div class="modal-body">
                             <div class="form-group">
                                 <label>Podaj hasło</label>

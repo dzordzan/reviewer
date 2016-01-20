@@ -35,32 +35,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Creates a new Product entity.
-     *
-     * @Route("/new", name="database_new")
-     * @Method({"GET", "POST"})
-     */
-    public function newAction(Request $request)
-    {
-        $product = new Product();
-        $form = $this->createForm('AppBundle\Form\ProductType', $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirectToRoute('database_show', array('id' => $product->getId()));
-        }
-
-        return $this->render('product/new.html.twig', array(
-            'product' => $product,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
      * Finds and displays a Product entity.
      *
      * @Route("/{id}", name="database_show")
@@ -68,11 +42,9 @@ class ProductController extends Controller
      */
     public function showAction(Product $product)
     {
-        $deleteForm = $this->createDeleteForm($product);
 
         return $this->render('product/show.html.twig', array(
-            'product' => $product,
-            'delete_form' => $deleteForm->createView(),
+            'product' => $product
         ));
     }
 
@@ -106,18 +78,24 @@ class ProductController extends Controller
     /**
      * Deletes a Product entity.
      *
-     * @Route("/{id}", name="product_delete")
-     * @Method("DELETE")
+     * @Route("/delete/{id}", name="product_delete")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, Product $product)
     {
-        $form = $this->createDeleteForm($product);
-        $form->handleRequest($request);
+        if ($request->get('pass') !== 'angólar') {
+            $this->addFlash('danger', 'Nie masz uprawnień do wykonania tej operacji');
+        } else {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($product);
-            $em->flush();
+            $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product');
+
+            $em->createQueryBuilder('p')
+                ->delete()
+                ->where('p.id = :product')
+                ->setParameter('product', $product->getId())
+                ->getQuery()->execute();
+
+            $this->addFlash('success', 'Pomyslnie usunąłeś produkt');
         }
 
         return $this->redirectToRoute('database_index');
@@ -126,7 +104,7 @@ class ProductController extends Controller
     /**
      * Deletes a whole database.
      *
-     * @Route("/delete/whole", name="database_delete")
+     * @Route("/whole/delete", name="database_delete")
      * @Method("GET")
      */
     public function deleteDatabaseAction(Request $request)
@@ -147,19 +125,4 @@ class ProductController extends Controller
         return $this->redirectToRoute('database_index');
     }
 
-    /**
-     * Creates a form to delete a Product entity.
-     *
-     * @param Product $product The Product entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Product $product)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('database_delete', array('id' => $product->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
-    }
 }
