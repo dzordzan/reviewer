@@ -7,22 +7,29 @@
 
 {% block body %}
     <div loading-mask class="loading"></div>
-    <div id="search" ng-controller="ProductSearchController" class="animated {{ ng.curly('animation') }} pulse" ng-click="animation=false">
 
-            <input type="search"
-                   ng-model="searchProduct"
-                   placeholder="Podaj nazwę produktu"
-                   uib-typeahead="searchProduct as searchProduct.name for searchProduct in getLocation($viewValue)"
-                   typeahead-min-length="1"
-                   typeahead-no-results="noResults"
-                   typeahead-template-url="{{ asset('bundles/app/templates/product-result.tpl.html') }}"
-                   typeahead-popup-template-url="{{ asset('bundles/app/templates/product-popup.tpl.html') }}"
-                   typeahead-on-select="onSelect($item, $model)"
-                   ng-model-options="{debounce: 500}"
-                   id="search-input"
-                   {#ng-style="{'background': 'url('+(searchProduct.image)+') no-repeat scroll 100px 100%'}"#}>
+    <div
+            id="search"
+            ng-controller="ProductSearchController"
+            class="animated {{ ng.curly('animation') }} pulse"
+            ng-click="animation=false">
+            <tour step="tourStep" post-step="stepComplete()">
+                <input type="search"
+                       tourtip="Wpisz nazwę produktu, a następnie wybierz pozycję z listy"
+                       tourtip-offset-horizontal="{{ ng.curly('iframeWidth/2') }}"
+                       ng-model="searchProduct"
+                       placeholder="Podaj nazwę produktu"
+                       uib-typeahead="searchProduct as searchProduct.name for searchProduct in getLocation($viewValue)"
+                       typeahead-min-length="1"
+                       typeahead-no-results="noResults"
+                       typeahead-template-url="{{ asset('bundles/app/templates/product-result.tpl.html') }}"
+                       typeahead-popup-template-url="{{ asset('bundles/app/templates/product-popup.tpl.html') }}"
+                       typeahead-on-select="onSelect($item, $model)"
+                       ng-model-options="{debounce: 500}"
+                       id="search-input"
+                       {#ng-style="{'background': 'url('+(searchProduct.image)+') no-repeat scroll 100px 100%'}"#}>
 
-
+            </tour>
         <ul ng-show="noResults" class="dropdown-menu custom-popup" role="listbox"
             uib-dropdown uib-dropdown-toggle auto-close="disabled" is-open="true"
             ng-style="{top: position().top+'px', width: 0.7*position().width+'px', 'height': 8*position().height + 'px'}"
@@ -34,9 +41,8 @@
                 </a>
             </li>
         </ul>
-
-
     </div>
+
 
 
 <div class="container">
@@ -48,18 +54,21 @@
 </div>
 </div>
     <div
-         class='container' ng-controller="ProductController">
+         class='container'
+         ng-controller="ProductController">
 
         <div class="col-md-12">
             <div ng-show="loaderMax>1&&loaderValue>0">
-                <uib-progressbar max="loaderMax" value="loaderValue"><span style="color:white; white-space:nowrap;">ładowanie komentarzy {{ ng.curly('loaderValue/loaderMax*100| number:0') }}%</span></uib-progressbar>
+                <uib-progressbar max="loaderMax"
+                                 value="loaderValue">
+                    <span style="color:white; white-space:nowrap;">ładowanie komentarzy {{ ng.curly('loaderValue/loaderMax*100| number:0') }}%</span></uib-progressbar>
             </div>
         </div>
 
         <div class="button-list">
             <tour step="currentStep" post-step="stepComplete()">
                 <div class="btn-group-justified">
-                    <a tourtip="Kliknij w ten przycisk, aby pobrać dane o wybranym produkcie z serwisu ceneo" href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
+                    <a tourtip-step="0" tourtip="Kliknij w ten przycisk, aby pobrać dane o wybranym produkcie z serwisu ceneo" href="#" class="btn btn-primary" ng-click="getProductInfo()">Pobierz informacje</a>
                     <a tourtip="Klknij, aby pobrać listę podobnych produktów z serwisu skapiec.pl" href="#" ng-disabled="!product.id" class="btn btn-primary btn-success" ng-click="getSimilar()">Szukaj podobnych</a>
                     <a tourtip="Klknij, jeśli chcesz zapisać dane do pliku w wybranym formacie" href="#"  class="btn btn-primary btn-success" ng-click="saveToPc(product, product.id+'.'+saveFormat)">Zapisz dane</a>
                     <a tourtip="Kliknij, aby przeglądać i edytować bazę danych" href="{{ path('database_index') }}"  class="btn btn-primary">Wyświetl zapisane</a>

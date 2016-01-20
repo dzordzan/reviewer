@@ -6,12 +6,22 @@ angular
 	 * @Class ProductSearchController
 	 * @constructor
 	 */
-function ProductSearchController ($scope, $http, $rootScope, Console) {
+function ProductSearchController ($scope, $http, $rootScope, Console, ipCookie) {
     var vm = this;
     vm.selected = undefined;
     $scope.iframeHeight = window.innerHeight;
+    $scope.iframeWidth = window.innerWidth;
     $scope.product = {};
     $scope.animation = 'infinite';
+
+    $scope.process = ipCookie('process') || 'manual';
+
+    $scope.tourStep = ipCookie('tourStep') || 0;
+
+    // save cookie after each step
+    $scope.stepComplete = function() {
+        ipCookie('tourStep', $scope.tourStep);
+    };
 
 	/** 
 	 * This function looks for products from Ceneo.pl, based on the characters entered by user
