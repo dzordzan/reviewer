@@ -22,6 +22,8 @@ class ProductController extends Controller
      *
      * @Route("/", name="database_index")
      * @Method("GET")
+     * 
+     * @return mixed $products / List of products as an array
      */
     public function indexAction()
     {
@@ -39,6 +41,8 @@ class ProductController extends Controller
      *
      * @Route("/{id}", name="database_show")
      * @Method("GET")
+     * @param Product $product
+     * @return $product / dopisz typ - nie wiem
      */
     public function showAction(Product $product)
     {
@@ -53,6 +57,9 @@ class ProductController extends Controller
      *
      * @Route("/{id}/edit", name="database_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Product $product
+     * @return / dopisz - nie wiem
      */
     public function editAction(Request $request, Product $product)
     {
@@ -80,6 +87,9 @@ class ProductController extends Controller
      *
      * @Route("/delete/{id}", name="product_delete")
      * @Method("GET")
+     * @param Request $request
+     * @param Product $product
+     * @return / dopisz - nie wiem
      */
     public function deleteAction(Request $request, Product $product)
     {
@@ -106,6 +116,7 @@ class ProductController extends Controller
      *
      * @Route("/whole/delete", name="database_delete")
      * @Method("GET")
+     * @param Request $request
      */
     public function deleteDatabaseAction(Request $request)
     {
