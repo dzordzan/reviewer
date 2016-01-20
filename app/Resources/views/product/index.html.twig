@@ -6,7 +6,7 @@
 
 	<ul class="list-inline">
 		<li><a href="{{ path('app_default_index') }}" class="btn btn-primary top-btn">Wróć do strony głównej</a></li>
-		<li><a href="{{ path('database_delete', {pass: 'ddd'}) }}" class="btn btn-danger top-btn">Wyczyść baze danych</a>
+		<li><button class="btn btn-danger top-btn" data-toggle="modal" data-target="#myModal">Wyczyść baze danych</a>
         </li>
 		
 	</ul>
@@ -52,4 +52,29 @@
     </table>
 	</div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Wymagana autoryzacja</h4>
+                </div>
+                <form methord="get" action="{{ path('database_delete') }}" role="form" class="form-inline">
+                    <div class="modal-body">
+                            <div class="form-group">
+                                <label>Podaj hasło</label>
+                                <input name="pass" class="form-control" type="password" />
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                        <button type="submit" class="btn btn-primary" >Potwierdź</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
 {% endblock %}

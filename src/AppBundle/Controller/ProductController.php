@@ -126,12 +126,12 @@ class ProductController extends Controller
     /**
      * Deletes a whole database.
      *
-     * @Route("/delete/whole/{pass}", name="database_delete")
+     * @Route("/delete/whole", name="database_delete")
      * @Method("GET")
      */
-    public function deleteDatabaseAction(Request $request, $pass)
+    public function deleteDatabaseAction(Request $request)
     {
-        if ($pass !== 'angólar') {
+        if ($request->get('pass') !== 'angólar') {
             throw $this->createAccessDeniedException('Nie masz uprawnień do wykonania tej operacji');
         }
 
