@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Klasa odpowiedzialna za przetwarzanie zapytań 
+ * Class resposible for processing queries
  * @NamePrefix("api_")
  */
 class ProductController extends FOSRestController
@@ -18,8 +18,8 @@ class ProductController extends FOSRestController
     /**
      * This function get products list from Ceneo and return it as JSON records
      * @Get("/api/products/{name}", name="api_get_products", requirements={"name"=".+"})
-     * @param $name
-     * @return Response
+     * @param String $name / Name of the product
+     * @return mixed Response / Products list as JSON records
      */
     public function getProductsAction($name)
     {
@@ -40,8 +40,8 @@ class ProductController extends FOSRestController
     /**
      * This function get product detail from Ceneo and return it as JSON record
      * @Get("/api/product/{id}", name="api_get_product", requirements={"id"="\d+"})
-     * @param $id
-     * @return Response
+     * @param int $id / Product Id
+     * @return mixed Response / Product detail as JSON records
      */
     public function getProductAction($id)
     {
@@ -65,9 +65,9 @@ class ProductController extends FOSRestController
     /**
      * This function get product reviews from Ceneo and return it as JSON record
      * @Get("/api/product/review/{id}/{page}", name="api_get_product_review", requirements={"id"="\d+"})
-     * @param $id
-     * @param $page
-     * @return Response
+     * @param int $id / Product Id
+     * @param int $page / Numbers of page with comments
+     * @return mixed Response / Returns product review as JSON records
      */
     public function getProductReviewAction($id, $page)
     {
@@ -87,8 +87,8 @@ class ProductController extends FOSRestController
     /**
      * This function get products list from Skapiec and return it as JSON records
      * @Get("/api/similar/{name}", name="api_get_similar", requirements={"name"=".+"})
-     * @param $name
-     * @return Response
+     * @param String $name / Name of the product
+     * @return mixed Response / Products list as JSON records
      */
     public function getSimilarAction($name)
     {
@@ -107,9 +107,9 @@ class ProductController extends FOSRestController
 	/**
      * This function get product reviews from Skapiec and return it as JSON record
      * @Get("/api/review/similar/{catId}/{id}", name="api_get_similar_review")
-     * @param $id
-	 * @param $catid
-     * @return Response
+     * @param int $id / Product Id
+	 * @param int $catid / Id of products category
+     * @return mixed Response / Returns product review as JSON records
      */
     public function getSimilarReviewAction($id, $catId)
     {
@@ -128,11 +128,11 @@ class ProductController extends FOSRestController
     }
 
     /**
-     * This function get product reviews from Skapiec and return it as JSON record
+     * This function save product data into database
      * @Post("/api/product/save", name="api_save_product")
-     * @param Request $request
-     * @param $data
-     * @return Response
+     * @param Request $request / nie wiem
+     * @param $data / nie wiem
+     * @return mixed Response / nie wiem
      */
     public function saveProduct(Request $request)
     {
