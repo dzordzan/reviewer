@@ -19,11 +19,3 @@ This function handling loading
 * * *
 
 
-
-
-
-
-
-
-
-
