@@ -16,8 +16,6 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
     $scope.product = {};
     $scope.saveFormat = 'JSON';
     $scope.process = ipCookie('process') || 'manual';
-    // load cookie, or start new tour
-    $scope.currentStep = ipCookie('myTour') || 0;
 
     // save cookie after each step
     $scope.stepComplete = function() {
@@ -27,6 +25,8 @@ function ProductController ($scope, $http, $rootScope, Console, ipCookie) {
 
 
     $rootScope.$on('productSelected', function(event, model) {
+        // load cookie, or start new tour
+        $scope.currentStep = ipCookie('myTour') || 0;
         //$scope.setProductModel(model.id);
         $scope.product = model;
         $scope.product.reviews = [];
