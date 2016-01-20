@@ -132,14 +132,17 @@ class ProductController extends Controller
     public function deleteDatabaseAction(Request $request)
     {
         if ($request->get('pass') !== 'angólar') {
-            throw $this->createAccessDeniedException('Nie masz uprawnień do wykonania tej operacji');
+            $this->addFlash('danger', 'Nie masz uprawnień do wykonania tej operacji');
+        } else {
+
+            $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product');
+
+            $em->createQueryBuilder('p')
+                ->delete()
+                ->getQuery()->execute();
+
+            $this->addFlash('success', 'Pomyslnie usunąłeś wszystkie wpisy');
         }
-
-        $em = $this->getDoctrine()->getManager()->getRepository('AppBundle:Product');
-
-        $em->createQueryBuilder('p')
-            ->delete()
-            ->getQuery()->execute();
 
         return $this->redirectToRoute('database_index');
     }
