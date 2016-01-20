@@ -23,6 +23,11 @@
                     </div>
                 {% endfor %}
             {% endfor %}
+                <script>
+                    $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+                        $(".alert").alert('close');
+                    });
+                </script>
             </nav>
         {% endblock %}
         {% block body %}{% endblock %}
